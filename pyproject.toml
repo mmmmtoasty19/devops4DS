@@ -8,6 +8,8 @@ dependencies = [
     "numpy>=2.3.4",
     "palmerpenguins>=0.1.4",
     "pandas>=2.3.3",
+    "pins>=0.9.1",
     "scikit-learn>=1.7.2",
     "setuptools>=80.9.0",
+    "vetiver>=0.2.6",
 ]
