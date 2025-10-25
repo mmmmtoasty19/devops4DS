@@ -8,8 +8,8 @@ format:
 
 
 ```{r}
-
-df <- palmerpenguins::penguins
+con <- DBI::dbConnect(duckdb::duckdb(), dbdir = "data/db/my-db.duckdb")
+df <- dplyr::tbl(con, "penguin") |> dplyr::collect()
 
 ```
 
@@ -33,4 +33,9 @@ df |>
   ggplot2::ggplot(ggplot2::aes(x = bill_length_mm, y = body_mass_g, color = species)) +
   ggplot2::geom_point() + 
   ggplot2::geom_smooth(method = "lm")
+```
+
+
+```{r}
+DBI::dbDisconnect(con)
 ```
