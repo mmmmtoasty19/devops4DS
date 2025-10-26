@@ -58,9 +58,4 @@ model_board = board_folder("data/model", allow_pickle_read = True)
 vetiver_pin_write(model_board, v)
 ```
 
-## Turn model into API
-
-```{python}
-from vetiver import VetiverAPI
-app = VetiverAPI(v, check_prototype = True)
-```
+>
