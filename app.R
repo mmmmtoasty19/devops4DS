@@ -2,6 +2,7 @@
 # ====== Globals ======
 
 api_url <- "http://127.0.0.1:8080/predict"
+log <- log4r::logger()
 
 # ====== UI ======
 
@@ -45,6 +46,8 @@ ui <- shiny::fluidPage(
 # ====== Server ====== 
 
 server <- function(input, output, session) {
+  log4r::info(log, "App Started")
+
   vals <- shiny::reactive({
     list(
       bill_length_mm = input$bill_length,
@@ -56,11 +59,21 @@ server <- function(input, output, session) {
 
   # Fetch prediction from API
   pred <- shiny::eventReactive(
-    input$predict,
-    httr2::request(api_url) |>
-      httr2::req_body_json(list(vals())) |>
-      httr2::req_perform() |>
-      httr2::resp_body_json(),
+    input$predict, 
+    {
+      log4r::info(log, "Prediction Started")  
+      resp <- httr2::request(api_url) |>
+          httr2::req_body_json(list(vals())) |>
+          httr2::req_perform() 
+      
+      log4r::info(log, "Prediction Returned")
+
+       if (httr2::resp_is_error(resp)) {
+        log4r::error(log, paste("HTTP Error"))
+      }
+
+      httr2::resp_body_json(resp)
+    },
     ignoreInit = TRUE
   )
 
