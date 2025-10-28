@@ -49,8 +49,7 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 
-# virtual environments
-renv/
+
 
 
 ###### Python #####
