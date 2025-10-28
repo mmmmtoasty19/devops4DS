@@ -1,0 +1,4 @@
+- source: project
+  gh-pages:
+    - branch: gh-pages
+      url: https://mmmmtoasty19.github.io/devops4DS/
