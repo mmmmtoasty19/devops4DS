@@ -7,9 +7,9 @@ website:
     left: 
       - href: index.qmd
         text: Home
-      - href: eda.qmd
+      - href: eda-basic.qmd
         text: EDA
-      - href: model.qmd
+      - href: model-py.qmd
         text: Model
 
 format: 

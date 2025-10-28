@@ -8,5 +8,5 @@ This project shows off building and deploying a machine learning model for predi
 
 ## Pages
 
-- [Exploratory Data Analysis](eda.qmd) - Explore the Palmer Penguins dataset
+- [Exploratory Data Analysis](eda-basic.qmd) - Explore the Palmer Penguins dataset
 - [Model Building](model-py.qmd) - Train and save a linear regression model
