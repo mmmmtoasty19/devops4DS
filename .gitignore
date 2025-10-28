@@ -271,3 +271,6 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
+# Quarto
+/.quarto/
+/_site/
