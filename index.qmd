@@ -1,0 +1,12 @@
+---
+title: "Penguin Model Project"
+---
+
+Welcome to the penguin model website!
+
+This project shows off building and deploying a machine learning model for predicting penguin body mass, using the Palmer Penguins dataset
+
+## Pages
+
+- [Exploratory Data Analysis](eda.qmd) - Explore the Palmer Penguins dataset
+- [Model Building](model-py.qmd) - Train and save a linear regression model
