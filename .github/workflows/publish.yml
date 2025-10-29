@@ -5,24 +5,34 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  build-deploy:
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 30 
-    permissions:
-      contents: write
+    timeout-minutes: 30
+    
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-
+      
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
-
+      
       - name: Install uv
         uses: astral-sh/setup-uv@v4
         with:
           version: "latest"
-
+      
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -30,27 +40,42 @@ jobs:
       
       - name: Install Python dependencies with UV
         run: |
+          echo "Starting uv sync..."
           uv sync --frozen
+          echo "UV sync completed"
           echo "$PWD/.venv/bin" >> $GITHUB_PATH
-
+        timeout-minutes: 10
+      
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
         with:
           use-public-rspm: true
-
+      
       - name: Set up renv
         uses: r-lib/actions/setup-renv@v2
+        timeout-minutes: 10
         env:
           RENV_CONFIG_REPOS_OVERRIDE: https://packagemanager.posit.co/cran/latest
-
+      
       - name: Render Quarto Project
         uses: quarto-dev/quarto-actions/render@v2
         timeout-minutes: 10
       
-      - name: Publish to GitHub Pages
-        uses: quarto-dev/quarto-actions/publish@v2
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          target: gh-pages
-          render: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          path: '_site'
+  
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
