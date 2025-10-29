@@ -1,0 +1,9 @@
+services:
+  penguin-model:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data/model:/data/model
+    container_name: penguin-model
+    restart: unless-stopped # Keeps model running (useful for online hosting)
