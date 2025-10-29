@@ -8,6 +8,7 @@ on:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 30 
     permissions:
       contents: write
     steps:
@@ -42,9 +43,14 @@ jobs:
         env:
           RENV_CONFIG_REPOS_OVERRIDE: https://packagemanager.posit.co/cran/latest
 
-      - name: Render and Publish
+      - name: Render Quarto Project
+        uses: quarto-dev/quarto-actions/render@v2
+        timeout-minutes: 10
+      
+      - name: Publish to GitHub Pages
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
+          render: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
