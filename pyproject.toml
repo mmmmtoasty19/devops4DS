@@ -5,11 +5,13 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "duckdb>=1.4.1",
     "jupyter>=1.1.1",
     "numpy>=2.3.4",
     "palmerpenguins>=0.1.4",
     "pandas>=2.3.3",
     "pins>=0.9.1",
+    "s3fs>=2025.7.0",
     "scikit-learn>=1.7.2",
     "setuptools>=80.9.0",
     "vetiver>=0.2.6",
