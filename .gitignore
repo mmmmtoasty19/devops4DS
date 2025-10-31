@@ -273,3 +273,6 @@ __marimo__/
 # Quarto
 /.quarto/
 /_site/
+
+# Do not store AWS Key
+*.pem

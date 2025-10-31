@@ -5,12 +5,42 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "duckdb>=1.4.1",
     "jupyter>=1.1.1",
     "numpy>=2.3.4",
     "palmerpenguins>=0.1.4",
     "pandas>=2.3.3",
     "pins>=0.9.1",
+    "s3fs>=2025.7.0",
     "scikit-learn>=1.7.2",
     "setuptools>=80.9.0",
     "vetiver>=0.2.6",
 ]
+
+# ========== Ruff Configuration ==========
+[tool.ruff]
+line-length = 88
+
+# Target your Python version
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors (already default)
+    "F",   # Pyflakes (already default) 
+    "I",   # isort - import sorting
+    "UP",  # pyupgrade - modernize Python syntax
+    "B",   # flake8-bugbear - catch common bugs
+    "SIM", # flake8-simplify - suggest simpler code
+]
+unfixable = ["F401"]
+
+# Allow Ruff to fix issues automatically
+fixable = ["ALL"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["weather-agent"]
+
+[tool.ruff.format]
+quote-style = "double"
+

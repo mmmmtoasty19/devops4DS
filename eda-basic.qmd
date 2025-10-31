@@ -8,7 +8,12 @@ format:
 
 
 ```{r}
-con <- DBI::dbConnect(duckdb::duckdb(), dbdir = "data/db/my-db.duckdb")
+
+con <- DBI::dbConnect(duckdb::duckdb())
+DBI::dbExecute(con, "INSTALL httpfs")
+DBI::dbExecute(con, "LOAD httpfs")
+DBI::dbExecute(con, "CREATE VIEW penguin AS SELECT * FROM read_parquet('s3://do4ds-lab-kyle/data/penguins.parquet')")
+
 df <- dplyr::tbl(con, "penguin") |> dplyr::collect()
 
 ```
