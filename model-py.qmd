@@ -18,7 +18,15 @@ from sklearn import preprocessing
 ## Get Data
 
 ```{python}
-con = duckdb.connect('data/db/my-db.duckdb')
+con = duckdb.connect()
+con.execute("INSTALL httpfs")
+con.execute("LOAD httpfs")
+
+# Create view (just like your local database)
+con.execute("""
+    CREATE VIEW penguin AS 
+    SELECT * FROM read_parquet('s3://do4ds-lab-kyle/data/penguins.parquet')
+""")
 df = con.execute("SELECT * FROM penguin").fetchdf().dropna()
 con.close()
 
