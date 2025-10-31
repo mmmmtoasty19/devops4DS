@@ -56,7 +56,7 @@ v = VetiverModel(model, model_name='penguin_model', prototype_data=X)
 from pins import board_s3
 from vetiver import vetiver_pin_write
 
-model_board = board_s3("do4ds-lab",  allow_pickle_read = True)
+model_board = board_s3("do4ds-lab-kyle",  allow_pickle_read = True)
 vetiver_pin_write(model_board, v)
 ```
 
