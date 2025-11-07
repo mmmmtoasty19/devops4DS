@@ -21,8 +21,10 @@ jobs:
           chmod 600 private_key
           
           # SSH into server and run deployment commands
-          ssh -o StrictHostKeyChecking=no -i private_key kyle-dev@${HOST} << 'ENDSSH'
-            cd ${APP_DIR}
+          ssh -o StrictHostKeyChecking=no -i private_key kyle-dev@${HOST} << ENDSSH
+            cd $APP_DIR
+            
+            echo "Current directory: \$(pwd)"
             
             echo "Pulling latest changes..."
             git pull origin main
