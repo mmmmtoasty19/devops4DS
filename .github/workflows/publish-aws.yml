@@ -1,0 +1,46 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Deploy to EC2
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          HOST: ${{ secrets.EC2_HOST }}
+          APP_DIR: ${{ secrets.APP_DIRECTORY }}
+        run: |
+          # Save SSH key to file
+          echo "$SSH_PRIVATE_KEY" > private_key
+          chmod 600 private_key
+          
+          # SSH into server and run deployment commands
+          ssh -o StrictHostKeyChecking=no -i private_key kyle-dev@${HOST} << 'ENDSSH'
+            cd ${APP_DIR}
+            
+            echo "Pulling latest changes..."
+            git pull origin main
+            
+            echo "Checking if renv.lock changed..."
+            # Check if renv.lock was modified in the latest pull
+            if git diff HEAD@{1} HEAD --name-only | grep -q "renv.lock"; then
+              echo "renv.lock changed, restoring packages..."
+              Rscript -e "renv::restore()"
+            else
+              echo "renv.lock unchanged, skipping restore"
+            fi
+            
+            echo "Restarting Shiny Server..."
+            sudo systemctl restart shiny-server
+            
+            echo "Deployment complete!"
+          ENDSSH
+          
+          # Clean up SSH key
+          rm -f private_key
