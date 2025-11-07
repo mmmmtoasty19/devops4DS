@@ -3,6 +3,24 @@ name: Publish Quarto Website
 on:
   push:
     branches: [main]
+    paths:
+      # Quarto source files
+      - '**.qmd'
+      
+      # Quarto configuration
+      - '_quarto.yml'
+      - '_publish.yml'
+      
+      # Frozen computational results (pre-computed outputs)
+      - '_freeze/**'
+      
+      # Dependency files
+      - 'pyproject.toml'
+      - 'uv.lock'
+      - 'renv.lock'
+      
+      # The workflow itself
+      - '.github/workflows/quarto-publish.yml'
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
