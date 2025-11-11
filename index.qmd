@@ -8,5 +8,11 @@ This project shows off building and deploying a machine learning model for predi
 
 ## Pages
 
-- [Exploratory Data Analysis](eda-basic.qmd) - Explore the Palmer Penguins dataset
-- [Model Building](model-py.qmd) - Train and save a linear regression model
+-   [Exploratory Data Analysis](eda-basic.qmd) - Explore the Palmer Penguins dataset
+
+-   [Model Building](model-py.qmd) - Train and save a linear regression model
+
+```{=html}
+<iframe width=80% height="500" src="kylebelanger.dev/shiny/devops4DS" title="Penguin Model Explorer"></iframe>
+    
+```
