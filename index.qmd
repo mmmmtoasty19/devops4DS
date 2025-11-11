@@ -13,6 +13,5 @@ This project shows off building and deploying a machine learning model for predi
 -   [Model Building](model-py.qmd) - Train and save a linear regression model
 
 ```{=html}
-<iframe width=80% height="500" src="https://kylebelanger.dev/shiny/devops4DS/ title="Penguin Model Explorer"></iframe>
-    
+<iframe width=80% height="500" src="https://kylebelanger.dev/shiny/devops4DS/" title="Penguin Model Explorer"></iframe> 
 ```
